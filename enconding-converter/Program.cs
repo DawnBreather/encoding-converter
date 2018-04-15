@@ -50,8 +50,17 @@ namespace enconding_converter
                         detector.DataEnd();
                         
                         encoding = Encoding.GetEncoding(detector.Charset);
-                        
-                        Console.WriteLine($"{encoding.WebName} {detector.Confidence * 100}% | {f.Extension} | {f.Name.Replace(f.Extension,"")}");
+
+                        try
+                        {
+                            Console.WriteLine(
+                                $"{encoding.WebName} {detector.Confidence * 100}% | {f.Extension} | {f.Name.Replace(f.Extension, "")}");
+                        }
+                        catch
+                        {
+                            Console.WriteLine(
+                                $"{encoding.WebName} {Math.Round(detector.Confidence * 100, 0)}% | {f.Extension} | {f.Name}");
+                        }
                     }
                     
                     if (encoding.WebName != destinationEncoding)
